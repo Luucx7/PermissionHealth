@@ -1,8 +1,8 @@
 name: MaxHealthPlugin
 author: Luucx7
-website:
+website: https://github.com/Luucx7/MaxHealthPlugin
 main: me.luucx7.MaxHealthPlugin
 description: A plugin that allows the maximum HP of any player to be changed using just permissions, without the need of the player having to rejoin.
 depend:
   - 'LuckPerms'
-version: 1.0-SNAPSHOT
+version: 1.0
