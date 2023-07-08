@@ -34,15 +34,25 @@ public class MaxHealthHandler {
         return defaultHP;
     }
 
-    public static void applyHealthChange(Player player) {
-        double maxHpBefore = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+    public static void applyHealthChange(final Player player) {
+        final double maxHpBefore = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
 
         // 1 tick after because some things are hella buggy sometimes
         Bukkit.getScheduler().runTaskLater(MaxHealthPlugin.getInstance(), () -> {
-            int maxHP = getPlayerMaxHP(player);
+            final int maxHP = getPlayerMaxHP(player);
+            final int foodLvl = player.getFoodLevel();
 
             player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(maxHP);
-            if (player.getHealth() >= maxHpBefore) player.setHealth(maxHP);
+            player.setFoodLevel(Math.max(foodLvl - 1, 0)); // On version before 1.19 hunger is somehow related to how health is updated, and this fixes the issue
+
+            // another tick after because lol minecraft
+            Bukkit.getScheduler().runTaskLater(MaxHealthPlugin.getInstance(), () -> {
+                if (player.getHealth() >= maxHpBefore) {
+                    player.setHealth(maxHP);
+                }
+
+                player.setFoodLevel(foodLvl); // leave hunger as it was before the manipulation
+            }, 1);
         }, 1);
     }
 }
