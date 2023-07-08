@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class LuckPermsPermissionListener {
 
@@ -33,9 +34,9 @@ public class LuckPermsPermissionListener {
 
     private void nodeAddEvent(NodeMutateEvent event) {
         List<Node> nodes = event.getDataAfter().stream()
-                .filter(node -> node.getType() == NodeType.PERMISSION)
+                .filter(node -> node.getType() == NodeType.PERMISSION || node.getType() == NodeType.INHERITANCE)
                 .filter(node -> node.getKey().startsWith(MaxHealthPlugin.PERMISSION))
-                .toList();
+                .collect(Collectors.toList());
 
         if (nodes.size() == 0) return;
 
@@ -61,7 +62,7 @@ public class LuckPermsPermissionListener {
         List<Node> nodes = event.getDataBefore().stream()
                 .filter(node -> node.getType() == NodeType.PERMISSION)
                 .filter(node -> node.getKey().startsWith(MaxHealthPlugin.PERMISSION))
-                .toList();
+                .collect(Collectors.toList());
 
         if (nodes.size() == 0) return;
 

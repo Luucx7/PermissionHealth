@@ -8,6 +8,7 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class MaxHealthHandler {
 
@@ -18,7 +19,7 @@ public class MaxHealthHandler {
         if (!(MaxHealthPlugin.getInstance().getConfig().isInt("default_hp"))) defaultHP = 20;
         else defaultHP = MaxHealthPlugin.getInstance().getConfig().getInt("default_hp");
 
-        List<PermissionAttachmentInfo> perms = player.getEffectivePermissions().stream().filter(PermissionAttachmentInfo::getValue).filter((x) -> x.getPermission().startsWith(permPrefix + ".")).toList();
+        List<PermissionAttachmentInfo> perms = player.getEffectivePermissions().stream().filter(PermissionAttachmentInfo::getValue).filter((x) -> x.getPermission().startsWith(permPrefix + ".")).collect(Collectors.toList());
         if (perms.size() == 0) return defaultHP;
 
         AtomicInteger maxVal = new AtomicInteger(0);
