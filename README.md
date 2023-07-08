@@ -1,4 +1,4 @@
-# MaxHealthPlugin
+# PermissionHealth
 A simple minecraft plugin to change players maximum health using permissions.
 <br>LuckPerms is needed to listen the permission changes events, if you're not using it, you shoudl really give it a try!
 ## Usage
