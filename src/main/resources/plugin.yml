@@ -6,3 +6,7 @@ description: A plugin that allows the maximum HP of any player to be changed usi
 depend:
   - 'LuckPerms'
 version: 1.0
+commands:
+  healthforceupdate:
+    description: Force update player health
+    usage: /healthforceupdate [player|*]
